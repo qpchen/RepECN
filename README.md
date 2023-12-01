@@ -1,6 +1,6 @@
-# ALAN
+# RepECN
 
-This repository is an official PyTorch implementation of the paper **"ALAN: Self-Attention is Not All You Need for Image Super-Resolution"** from **IEEE SP-Letter** ([pretrained models](https://github.com/qpchen/ALAN/releases), [visual results](https://github.com/qpchen/ALAN/releases)).
+This repository is an official PyTorch implementation of the paper **"RepECN: Making ConvNets Better again for Efficient Image Super-Resolution"** from **Sensors** ([pretrained models](https://github.com/qpchen/RepECN/releases), [visual results](https://github.com/qpchen/RepECN/releases)).
 
 <!-- If you find our work useful in your research or publication, please cite our work:
 
@@ -16,13 +16,13 @@ This repository is an official PyTorch implementation of the paper **"ALAN: Self
 ``` -->
 We provide scripts for reproducing all the results from our paper. You can train your model from scratch, or use a pre-trained model to enlarge your images.
 
-![Visual comparisons of the efficient state-of-the-art models on Urban100 benchmark datasets for 4x SR. The proposed ALAN family reconstructs clean and sharp details.](figs/visual_compare.png)
+![Visual comparisons of the efficient state-of-the-art models on Set14 and Urban100 benchmark datasets for 4x SR. The proposed RepECN family reconstructs clean and sharp details.](figs/visual_compare.png)
 
 ---
 
-> Vision Transformer (ViT)-based image super-resolution (SR) methods have achieved impressive performance and surpassed CNN-based SR methods by utilizing Multi-Head Self-Attention (MHSA) to model long-range dependencies. However, the quadratic complexity of MHSA and the inefficiency of non-parallelized window partition seriously affect the inference speed, hindering these SR methods from being applied to application scenarios requiring speed and quality. To address this issue, we propose an Asymmetric Large-kernel Attention Network (ALAN) utilizing a stage-to-block design paradigm inspired by ViT. In the ALAN, the core block named Asymmetric Large Kernel Convolution Block (ALKCB) adopts a similar structure to the Swin Transformer Layer but replaces the MHSA with our proposed Asymmetric Depth-Wise Convolution Attention (ADWCA) to enhance both the SR quality and inference speed. The proposed ADWCA, with linear complexity, uses large kernel depth-wise dilation convolution and Hadamard product as the attention map. The structural re-parameterization technique to strengthen the kernel skeletons with asymmetric convolution is also explored. Experimental results demonstrate that ALAN achieves state-of-the-art performance with faster inference speed than ViT-based models and smaller parameters than CNN-based models. Specifically, the tiny size of ALAN (ALAN-T) is $3\times$ smaller than ShuffleMixer with similar performance, and ALAN is $4\times$ faster than SwinIR-S with 0.1dB gain in PSNR.
+> Traditional Convolutional Neural Network (ConvNet, CNN)-based image super-resolution (SR) methods have lower computation costs, making them more friendly for real-world scenarios. However, they suffer from lower performance. On the contrary, Vision Transformer (ViT)-based SR methods have achieved impressive performance recently, but these methods often suffer from high computation costs and model storage overhead, making them hard to meet the requirements in practical application scenarios. In practical scenarios, an SR model should reconstruct an image with high quality and fast inference. To handle this issue, we propose a novel CNN-based Efficient Residual ConvNet enhanced with structural Re-parameterization (RepECN) for a better trade-off between performance and efficiency. A stage-to-block hierarchical architecture design paradigm inspired by ViT is utilized to keep the state-of-the-art performance, while the efficiency is ensured by abandoning the time-consuming Multi-Head Self-Attention (MHSA) and by re-designing the block-level modules based on CNN. Specifically, RepECN consists of three structural modules: a shallow feature extraction module, a deep feature extraction, and an image reconstruction module. The deep feature extraction module comprises multiple ConvNet Stages (CNS), each containing 6 Re-Parameterization ConvNet Blocks (RepCNB), a head layer, and a residual connection. The RepCNB utilizes larger kernel convolutions rather than MHSA to enhance the capability of learning long-range dependence. In the image reconstruction module, an upsampling module consisting of nearest-neighbor interpolation and pixel attention is deployed to reduce parameters and maintain reconstruction performance, while bicubic interpolation on another branch allows the backbone network to focus on learning high-frequency information. The extensive experimental results on multiple public benchmarks show that our RepECN can achieve 2.5$\sim$5$\times$ faster inference than the state-of-the-art ViT-based SR model with better or competitive super-resolving performance, indicating that our RepECN can reconstruct high-quality images with fast inference.
 
-![Illustration of the proposed Asymmetric Large-kernel Attention Network (ALAN) architecture](figs/overview.png)
+![Illustration of the proposed Efficient Residual ConvNet enhanced with structural Re-parameterization (RepECN) architecture](figs/overview.png)
 
 ## Dependencies
 * Python 3.6
@@ -43,14 +43,14 @@ We provide scripts for reproducing all the results from our paper. You can train
 ## Code
 - Clone this repository into any place you want.
 ```bash
-git clone https://github.com/qpchen/ALAN
-cd ALAN
+git clone https://github.com/qpchen/RepECN
+cd RepECN
 ```
 
 - Create a conda virtual environment and activate it:
 ``` bash
-conda create -n alan python=3.9 -y
-conda activate alan
+conda create -n repecn python=3.9 -y
+conda activate repecn
 ```
 
 - Install `CUDA>=10.2` with `cudnn>=7` following
@@ -94,7 +94,7 @@ You can test our super-resolution algorithm with your images. Place your images 
 
 Run the script in ``src`` folder. Before you run the demo, please uncomment the appropriate line in ```demo.sh``` that you want to execute.
 ```bash
-cd src       # You are now in */ALAN/src
+cd src       # You are now in */RepECN/src
 sh demo.sh
 ```
 
@@ -110,9 +110,9 @@ You can evaluate your models with widely-used benchmark datasets:
 
 [Urban100 - Huang et al. CVPR 2015](https://sites.google.com/site/jbhuang0604/publications/struct_sr).
 
-For these datasets, we first convert the result images to YCbCr color space and evaluate PSNR on the Y channel only. You can download [benchmark datasets](https://cv.snu.ac.kr/research/EDSR/benchmark.tar) (250MB). Set ``--dir_data <where_benchmark_folder_located>`` to evaluate the ALAN with the benchmarks.
+For these datasets, we first convert the result images to YCbCr color space and evaluate PSNR on the Y channel only. You can download [benchmark datasets](https://cv.snu.ac.kr/research/EDSR/benchmark.tar) (250MB). Set ``--dir_data <where_benchmark_folder_located>`` to evaluate the RepECN with the benchmarks.
 
-## How to train ALAN
+## How to train RepECN
 We used [DIV2K](http://www.vision.ee.ethz.ch/%7Etimofter/publications/Agustsson-CVPRW-2017.pdf) dataset to train our model. Please download it from [here](https://cv.snu.ac.kr/research/EDSR/DIV2K.tar) (7.1GB).
 
 Unpack the tar file to any place you want. Then, change the ```dir_data``` argument in ```src/option.py``` to the place where DIV2K images are located.
@@ -121,39 +121,39 @@ We recommend you to pre-process the images before training. This step will decod
 
 If you have enough RAM (>= 32GB), you can use ``--ext bin`` argument to pack all DIV2K images in one binary file.
 
-You can train ALAN by yourself. All scripts are provided in the ``src/scripts/train_alan.sh``. 
+You can train RepECN by yourself. All scripts are provided in the ``src/scripts/train_repecn.sh``. 
 
 ```bash
-cd src       # You are now in */ALAN/src
-# train ALAN (x2) model
-./scripts/train_alan.sh train 0 1 b nr 2 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
-# train ALAN (x3) model
-./scripts/train_alan.sh train 1 1 b nr 3 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
-# train ALAN (x4) model
-./scripts/train_alan.sh train 1 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+cd src       # You are now in */RepECN/src
+# train RepECN (x2) model
+./scripts/train_repecn.sh train 0 1 b nr 2 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+# train RepECN (x3) model
+./scripts/train_repecn.sh train 1 1 b nr 3 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+# train RepECN (x4) model
+./scripts/train_repecn.sh train 1 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
 ```
 
 Then, you can evaluate the trained model by first switch the ACB block to the conventional convolutional block.
 
 ```bash
-# switch ACB to CNN for trained ALAN (x4) model
-./scripts/train_alan.sh switch 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
-# test the trained ALAN (x4) model
-./scripts/train_alan.sh eval 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+# switch ACB to CNN for trained RepECN (x4) model
+./scripts/train_repecn.sh switch 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+# test the trained RepECN (x4) model
+./scripts/train_repecn.sh eval 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
 ```
 
 You can also do lam analysis for the scale 4 models.
 
 ```bash
-# do LAM analysis on ALAN (x4) model
-./scripts/train_alan.sh lam 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+# do LAM analysis on RepECN (x4) model
+./scripts/train_repecn.sh lam 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
 ```
 
 ## Citation
-    @article{chen2023alan,
-      title={ALAN: Self-Attention is Not All You Need for Image Super-Resolution},
+    @article{chen2023repecn,
+      title={RepECN: Making ConvNets Better again for Efficient Image Super-Resolution},
       author={Chen, Qiangpu and Qin, Jinghui and Wen, Wushao},
-      journal={IEEE SPL},
+      journal={Sensors},
       year={2023}
     }
 

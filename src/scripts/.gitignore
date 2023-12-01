@@ -5,7 +5,7 @@
 !runtime_batch.sh
 !test_historical.sh
 !test_historical_batch.sh
-!train_raan.sh
+!train_repecn.sh
 !train_alan.sh
 
 # Jupyter temp file
