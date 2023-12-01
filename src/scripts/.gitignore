@@ -1,0 +1,12 @@
+*
+!.gitignore
+!startrun.sh
+!test_runtime.sh
+!runtime_batch.sh
+!test_historical.sh
+!test_historical_batch.sh
+!train_raan.sh
+!train_alan.sh
+
+# Jupyter temp file
+*.ipynb_checkpoints/

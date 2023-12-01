@@ -1,0 +1,37 @@
+# Jupyter temp file
+*.ipynb_checkpoints/
+
+*
+!.gitignore
+!*.m
+!*.ipynb
+# !PSNR_SSIM_Results_BI_model.txt
+#!logs/PSNR_SSIM_Means_Results_BI_model.txt
+
+!HR
+HR/*
+!HR/Set5
+HR/Set5/*
+!HR/Set5/x2
+!HR/Set5/x2/baby*
+
+!SR
+SR/*
+!SR/BI
+SR/BI/*
+!SR/BI/v5xt_j15
+SR/BI/v5xt_j15/*
+!SR/BI/v5xt_j15/Set5
+SR/BI/v5xt_j15/Set5/*
+!SR/BI/v5xt_j15/Set5/x2
+!SR/BI/v5xt_j15/Set5/x2/baby*
+
+!OriginalTestData
+OriginalTestData/*
+!OriginalTestData/Set5
+!OriginalTestData/Set5/baby.bmp
+
+
+!Prepare_TrainData
+Prepare_TrainData/*
+!Prepare_TrainData/*.m

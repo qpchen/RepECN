@@ -1,0 +1,233 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main.py",
+            // "program": "${workspaceFolder}/src/lam.py",
+            "cwd": "${workspaceFolder}/src",
+            "args": [
+                // "--cpu",
+                "--n_GPUs",
+                "1",
+                "--scale",
+                // "2",
+                // "3",
+                // "4",
+                "8",
+                // "1",
+                "--degradation",
+                "bicubic",
+                // "BD",
+                // "DN",
+                // "Noise",
+                // "Gray_Noise",
+                // "Blur",
+                // "JPEG",
+                "--patch_size",
+                // "12",
+                "96",
+                // "144",
+                // "192",
+                // "128",               // A2N/SwinIR-L for larger dataset like Flickr2K
+                // "384",
+                // "256",
+                "--batch_size",
+                "4",  // test
+                // "32",
+                "--accumulation_step",
+                "1",
+                "--data_train",
+                // "DIV2K",
+                "DIV2K_IR",
+                // "Flickr2K",
+                // "DF2K",
+                "--data_range",
+                "1-800",
+                // "1-900",
+                // "1-2650",
+                // "1-3550",
+                "--data_test",
+                // "Demo",
+                // "720P",
+                "Set5",  // SR
+                // "Set5+Set14+B100+Urban100+Manga109",  // SR
+                // "Kodak24",  // Color Denoising
+                // "Kodak24+CBSD68+McMaster+Urban100",  // Color Denoising
+                // "Set12",  // Gray Denoising
+                // "Set12+BSD68+Urban100_Gray",  // Gray Denoising
+                // "McMaster",  // Debluring
+                // "McMaster+Kodak24+Urban100",  // Debluring
+                // "Classic5",  // JPEG CAR
+                // "Classic5+LIVE1",  // JPEG CAR
+                // "Set5+Set14",
+                // "Set5+Set14+B100+Urban100+Manga109+DIV2K",
+                // "--dir_demo",
+                // "../test",
+                "--loss",
+                "1*SmoothL1",
+                // "1*L1",
+                // "1*MSE",
+                "--lr",
+                // "1e-3",
+                "5e-4",     // A2N
+                // "2e-4",    // ConvNeXt/SwinIR, but with lr decay, which is not found here
+                "--n_colors",
+                // "1",
+                "3",        // SwinIR/A2N
+                // "--ext",
+                // "img",
+                // "sep",
+                "--optimizer",
+                "ADAM",
+                // "AdamW",    // ConvNeXt, but seems not accelerate the convergence
+                // "--weight_decay",
+                // "0.05",     // ConvNeXt, but seems not accelerate the convergence
+                // "--lr_class",
+                // "CosineWarmRestart",
+                "--skip_threshold",
+                "1e6",
+                "--epochs",
+                "500",  // SwinIR setting
+                // "1000",  // RepECN-B
+                // "1500",  // RepECN-S
+                // "2000",  // RepECN-T
+                // "3000",  // RepECN-XT
+                "--decay",
+                "5-10",  // test
+                // "250-400-450-475",  // SwinIR setting
+                // "500-800-900-950",  // RepECN-B
+                // "750-1200-1350-1425",  // RepECN-S
+                // "1000-1600-1800-1900",  // RepECN-T
+                // "1500-2400-2700-2850",  // RepECN-XT
+                "--depths",
+                "2+2",  //test
+                // "3+3",  //0
+                // "2+4+2",  //a
+                // "2+2+4+2",  //b
+                // "2+2+6+2",  //c              // SwinIR level when training params 612K
+                // "3+3+9+3",  //d              // ConvNeXt-T  // SwinIR level?
+                // "3+3+27+3",  //e             // ConvNeXt-S/B/L/XL  // Swin level
+                // "6+6+6+6",  //f             // SwinIR-S
+                // "6+6+6+6+6+6",  //g(=e)             // SwinIR-C
+                // "6+6+6+6+6+6+6+6+6",  //h             // SwinIR-L
+                // "3+3+3+3",  //i              // RepECN-T
+                // "2+2+2+2",  //j              // RepECN-XT
+                "--dims",
+                "16+16",  // test
+                // "12+24",  //0
+                // "12+24+48",  //1
+                // "12+24+48+96",  //2
+                // "16+32+64+128",  //3         // SwinIR level
+                // "24+48+96+192",  //4
+                // "48+96+192+384",  //5
+                // "64+128+256+512",  //6
+                // "96+192+384+768",  //7       // ConvNeXt-T/S
+                // "128+256+512+1024",  //8     // ConvNeXt-B  // Swin level
+                // "192+384+768+1536",  //9     // ConvNeXt-L
+                // "256+512+1024+2048",  //10    // ConvNeXt-XL
+                // "60+60+60+60",  //11         // SwinIR-S
+                // "180+180+180+180+180+180",  //12 // SwinIR-C
+                // "240+240+240+240+240+240+240+240+240", //13      SwinIR-L
+                // "30+30+30+30",  //14         // RepECN-T
+                // "24+24+24+24",  //15         // RepECN-XT
+                // "--drop_path_rate",  // Seems degrade the SR performance
+                // "0.01",
+                // "0.05",
+                // "0.1",  // ConvNeXt-T
+                // "0.4",  // ConvNeXt-S
+                // "0.5",  // ConvNeXt-B/L
+                "--mlp_ratios",
+                "4+4",
+                // "4+4+4+4",
+                "--upsampling",
+                // "PixelShuffleDirect",
+                // "Deconv",
+                "Nearest",
+                // "PixelShuffle",
+                "--res_connect",
+                "1acb3",
+                // "3acb3",
+                // "1conv1",
+                // "skip",
+                "--deep_conv",
+                "1acb3",
+                // "--repecn_up_feat",
+                // "8",     //test
+                // "24",       // default 0, means same as dims[0]
+                // "32",       // RepECN-T
+                // "64",       // SwinIR
+                "--acb_norm",
+                "batch",
+                // "inst",
+                // "layer",
+                // "no",
+                // "--no_act_ps",
+                // "--no_bicubic",
+                "--interpolation",
+                // "Nearest",
+                "Bicubic",
+                // "PixelShuffle",
+                // "--no_layernorm",
+                "--norm_at",
+                "before",
+                "--no_count",
+                // "--runtime",
+                // "--times",
+                // "2",
+                "--model",
+                // "RepECNV5",
+                // "RepECNV9",
+                // "LapSRN",
+                // "RAAN",
+                // "ALANV2",
+                // "DCAN",
+                "DCANV2",
+                // "DCANV3",
+                // "--down_fea",
+                // "--use_wave",
+                // "--wave_patchup",
+                // "--use_acb",
+                // "--use_dbb",
+                // "--stage_res",
+                // "--epsilon",
+                // "1e-4",
+                // "--save_models",
+                "--save",
+                // "--load",
+                // "../lams",
+                "test",
+                // "repecn/repecn_v2t_x2",
+                // "repecn/repecn_v2s_x2",
+                // "../repecn/repecn_x2",
+                // "repecn/v5_test",
+                // "repecn/test",
+                "--reset"
+                // "--load",
+                // "--resume",
+                // "1"
+                // "-1"
+                // "--test_only",
+                // "--save_result",
+                // "--pre_train",
+                // "../experiment/repecn/test/model/model_best.pt",
+                // "--inf_switch"
+                // "../experiment/repecn/v5_test/model/model_best.pt",
+                // "../experiment/repecn/test/model/model_latest.pt"
+                // "../repecn/repecn_x2/model/model_best.pt",
+                // "../repecn/repecn_x2/model/inf_model.pt",
+                // "../experiment/repecn/test/model/inf_model.pt",
+                // "../runtime_models/alan_v1xs_x4.pt",
+                // "--load_inf"
+            ],
+            "env": {
+                "PYTHONUNBUFFERED": "1",
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
