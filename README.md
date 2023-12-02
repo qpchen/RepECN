@@ -126,27 +126,27 @@ You can train RepECN by yourself. All scripts are provided in the ``src/scripts/
 ```bash
 cd src       # You are now in */RepECN/src
 # train RepECN (x2) model
-./scripts/train_repecn.sh train 0 1 b nr 2 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh train 0 1 b b 2 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 # train RepECN (x3) model
-./scripts/train_repecn.sh train 1 1 b nr 3 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh train 0 1 b b 3 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 # train RepECN (x4) model
-./scripts/train_repecn.sh train 1 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh train 0 1 b b 4 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 ```
 
 Then, you can evaluate the trained model by first switch the ACB block to the conventional convolutional block.
 
 ```bash
 # switch ACB to CNN for trained RepECN (x4) model
-./scripts/train_repecn.sh switch 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh switch 0 1 b b 4 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 # test the trained RepECN (x4) model
-./scripts/train_repecn.sh eval 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh eval 0 1 b b 4 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 ```
 
 You can also do lam analysis for the scale 4 models.
 
 ```bash
 # do LAM analysis on RepECN (x4) model
-./scripts/train_repecn.sh lam 0 1 b nr 4 48 ms 5e-4 useStageRes no NN ACB 23 BN bicubic 0 0 no SmoothL1
+./scripts/train_repecn.sh lam 0 1 b b 4 48 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
 ```
 
 ## Citation

@@ -24,6 +24,12 @@ elif [ $2 = "s" ]; then
   dim_configs="--repecn_up_feat 60 --depths 6+6+6+6 --dims 60+60+60+60"
 elif [ $2 = "b" ]; then
   dim_configs="--repecn_up_feat 64 --depths 6+6+6+6+6+6 --dims 180+180+180+180+180+180"
+elif [ $2 = "repecn_t" ]; then
+  dim_configs="--repecn_up_feat 24 --depths 6+6 --dims 24+24"
+elif [ $2 = "repecn_s" ]; then
+  dim_configs="--repecn_up_feat 42 --depths 6+6+6 --dims 42+42+42"
+elif [ $2 = "repecn_b" ]; then
+  dim_configs="--repecn_up_feat 60 --depths 6+6+6+6+6 --dims 60+60+60+60+60"
 elif [ $2 = "fblt" ]; then
   dim_configs="--repecn_up_feat 42 --depths 6+6+6 --dims 42+42+42"
 elif [ $2 = "fbt" ]; then
@@ -55,13 +61,9 @@ if [ $model = "FSRCNN" ]; then
   python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --model FSRCNN --save ../runtime_models/logs/fsrcnn_s64_x$3 --pre_train ../runtime_models/fsrcnn_s64_x$3.pt --test_only --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "SRCNN" ]; then
   python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --model SRCNN --save ../runtime_models/logs/srcnn_s64_x$3 --pre_train ../runtime_models/srcnn_s64_x$3.pt --test_only --reset --runtime --times $5 $6 #--no_count --save_result 
-elif [ $model = "v8" ]; then
+elif [ $model = "RepECN" ]; then
   # ./scripts/train_repecn_v8.sh runtime 0 1 xt ab $3 48 ms skip v8old $5
-  python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --res_connect skip $dim_configs --upsampling Nearest --acb_norm v8old --model RepECNV8 --save ../runtime_models/v8$2_x$3 --pre_train ../runtime_models/logs/v8$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
-# elif [ $model = "v5" ]; then
-#   python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --res_connect 1acb3 $dim_configs --model RepECNV5 --save ../runtime_models/logs/v5$2_x$3 --pre_train ../runtime_models/v5$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
-elif [ $model = "v5" ]; then
-  python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --res_connect 1acb3 $dim_configs --model RepECNV5 --save ../runtime_models/logs/v5$2_x$3 --pre_train ../runtime_models/v5$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
+  python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --res_connect 1acb3  --deep_conv 1acb3 --norm_at before $dim_configs --upsampling Nearest --acb_norm batch --model RepECN --save ../runtime_models/$2_x$3 --pre_train ../runtime_models/logs/$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "IMDN" ]; then
   python main.py --n_threads 6 --scale $3 --patch_size $patch --batch_size 32 --data_test 720P --n_colors 3 --model IMDN --save ../runtime_models/logs/IMDN_x$3 --pre_train ../runtime_models/IMDN_x$3.pth --test_only --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "LAPAR_A" ]; then
@@ -98,7 +100,7 @@ elif [ $model = "RCAN" ]; then
 elif [ $model = "ShuffleMixer" ]; then
   python main.py --n_threads 6 --scale $3 --patch_size $patch --data_test 720P --n_colors 3 $dim_configs --model ShuffleMixer --save ../runtime_models/logs/ShuffleMixer-$2_x$3 --pre_train ../runtime_models/shufflemixer_$2_x$3.pth --test_only --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "ALAN" ]; then
-  python main.py --n_threads 6 --scale $3 --patch_size $patch --data_test 720P --n_colors 3 $dim_configs --model RAAN --interpolation Nearest --acb_norm batch --upsampling Nearest --use_acb --save ../runtime_models/logs/alan_$2_x$3 --pre_train ../runtime_models/alan_$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
+  python main.py --n_threads 6 --scale $3 --patch_size $patch --data_test 720P --n_colors 3 $dim_configs --model ALAN --interpolation Nearest --acb_norm batch --upsampling Nearest --use_acb --save ../runtime_models/logs/alan_$2_x$3 --pre_train ../runtime_models/alan_$2_x$3.pt --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "DCANV1" ]; then
   python main.py --n_threads 6 --scale $3 --patch_size $patch --data_test 720P --n_colors 3 $dim_configs --model DCAN --interpolation Nearest --acb_norm no --stage_res --upsampling Nearest --bb_norm BN --degradation bicubic --sigma 0 --quality 0 --pre_train ../runtime_models/dcanv1_$2_x$3.pt --save ../runtime_models/logs/dcanv1_$2_x$3 --test_only --load_inf --reset --runtime --times $5 $6 #--no_count --save_result 
 elif [ $model = "DCANV2" ]; then

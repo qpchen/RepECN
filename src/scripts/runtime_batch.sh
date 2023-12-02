@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ./scripts/runtime_batch.sh "RepECN" 48 "repecn_t repecn_s repecn_b" "2 3 4" "--save_result --no_count --n_GPUs 1 --times 50"
 # ./scripts/runtime_batch.sh "ALAN" 48 "v1t v1s v1b" "2 3 4" "--save_result --no_count --n_GPUs 1 --times 50"
 # ./scripts/runtime_batch.sh "RACN" 48 "no" "2 3 4" "--save_result --no_count --n_GPUs 1"
 # ./scripts/runtime_batch.sh "RACN" 48 "no" "2 3 4" "--n_GPUs 1"

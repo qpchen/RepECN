@@ -25,6 +25,12 @@ elif [ $2 = "s" ]; then
   dim_configs="--repecn_up_feat 60 --depths 6+6+6+6 --dims 60+60+60+60"
 elif [ $2 = "b" ]; then
   dim_configs="--repecn_up_feat 64 --depths 6+6+6+6+6+6 --dims 180+180+180+180+180+180"
+elif [ $2 = "repecn_t" ]; then
+  dim_configs="--repecn_up_feat 24 --depths 6+6 --dims 24+24"
+elif [ $2 = "repecn_s" ]; then
+  dim_configs="--repecn_up_feat 42 --depths 6+6+6 --dims 42+42+42"
+elif [ $2 = "repecn_b" ]; then
+  dim_configs="--repecn_up_feat 60 --depths 6+6+6+6+6 --dims 60+60+60+60+60"
 elif [ $2 = "fblt" ]; then
   dim_configs="--repecn_up_feat 42 --depths 6+6+6 --dims 42+42+42"
 elif [ $2 = "fbt" ]; then
@@ -50,16 +56,9 @@ if [ $model = "FSRCNN" ]; then
   python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --model FSRCNN --save ../runtime_models/historical/fsrcnn_s64_x$3 --pre_train ../runtime_models/fsrcnn_s64_x$3.pt --test_only --reset --no_count --save_result 
 elif [ $model = "SRCNN" ]; then
   python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --model SRCNN --save ../runtime_models/historical/srcnn_s64_x$3 --pre_train ../runtime_models/srcnn_s64_x$3.pt --test_only --reset --no_count --save_result 
-elif [ $model = "v8" ]; then
-  # ./scripts/train_repecn_v8.sh runtime 0 1 xt ab $3 48 ms skip v8old $5
-  python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --res_connect skip $dim_configs --upsampling Nearest --acb_norm v8old --model RepECNV8 --save ../runtime_models/historical/v8$2_x$3 --pre_train ../runtime_models/v8$2_x$3.pt --test_only --load_inf --reset --no_count --save_result 
-# elif [ $model = "v5" ]; then
-#   python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --res_connect 1acb3 $dim_configs --model RepECNV5 --save ../runtime_models/historical/v5$2_x$3 --pre_train ../runtime_models/v5$2_x$3.pt --test_only --load_inf --reset --no_count --save_result 
-elif [ $model = "v5" ]; then
-  python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --res_connect 1acb3 $dim_configs --model RepECNV5 --save ../runtime_models/historical/v5$2_x$3 --pre_train ../runtime_models/v5$2_x$3.pt --test_only --load_inf --reset --no_count --save_result 
-elif [ $model = "v9" ]; then
-  # ./scripts/train_repecn_v9.sh train 0 1 fbxt b 2 64 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
-  python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --res_connect 1acb3 --deep_conv 1acb3 --acb_norm batch --norm_at before $dim_configs --upsampling Nearest --model RepECNV9 --save ../runtime_models/historical/v9$2_x$3 --pre_train ../runtime_models/v9$2_x$3.pt --test_only --load_inf --reset --no_count --save_result 
+elif [ $model = "RepECN" ]; then
+  # ./scripts/train_repecn.sh train 0 1 t b 2 64 ms 1acb3 1acb3 batch befln nolr 2e-4 bicubic 0 0
+  python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --res_connect 1acb3 --deep_conv 1acb3 --acb_norm batch --norm_at before $dim_configs --upsampling Nearest --model RepECN --save ../runtime_models/historical/$2_x$3 --pre_train ../runtime_models/$2_x$3.pt --test_only --load_inf --reset --no_count --save_result 
 elif [ $model = "IMDN" ]; then
   python main.py --n_threads 8 --n_GPUs 1 --scale $3 --patch_size $patch --batch_size 32 --data_test Demo --dir_demo ../../dataset/historical/LR --n_colors 3 --model IMDN --save ../runtime_models/historical/IMDN_x$3 --pre_train ../runtime_models/IMDN_x$3.pth --test_only --reset --no_count --save_result 
 elif [ $model = "LAPAR_A" ]; then
