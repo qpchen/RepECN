@@ -1,6 +1,6 @@
 # RepECN
 
-This repository is an official PyTorch implementation of the paper **"RepECN: Making ConvNets Better again for Efficient Image Super-Resolution"** from **Sensors** ([pretrained models](https://github.com/qpchen/RepECN/releases), [visual results](https://github.com/qpchen/RepECN/releases)).
+This repository is an official PyTorch implementation of the paper **"RepECN: Making ConvNets Better again for Efficient Image Super-Resolution"** from **Sensors** ([paper](https://www.mdpi.com/1424-8220/23/23/9575), [pretrained models](https://github.com/qpchen/RepECN/releases), [visual results](https://github.com/qpchen/RepECN/releases)).
 
 <!-- If you find our work useful in your research or publication, please cite our work:
 
