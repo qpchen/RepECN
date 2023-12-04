@@ -95,5 +95,7 @@ src/params_macs_count.ipynb
 
 !figs/overview.png
 !figs/visual_compare.png
+!figs/perform_compare_cnn.png
+!figs/perform_compare_vit.png
 
 
