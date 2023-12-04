@@ -24,6 +24,10 @@ We provide scripts for reproducing all the results from our paper. You can train
 
 ![Illustration of the proposed Efficient Residual ConvNet enhanced with structural Re-parameterization (RepECN) architecture](figs/overview.png)
 
+![](figs/perform_compare_vit.png)
+
+![](figs/perform_compare_cnn.png)
+
 ## Dependencies
 * Python 3.6
 * PyTorch >= 1.10.0
